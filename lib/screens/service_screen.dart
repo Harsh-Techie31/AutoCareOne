@@ -60,12 +60,12 @@ class _ServiceScreenState extends State<ServiceScreen> {
                         width: 60,
                         height: 60,
                         decoration: BoxDecoration(
-                          color: Colors.blue.shade100,
+                          color: Theme.of(context).colorScheme.primaryContainer,
                           shape: BoxShape.circle,
                         ),
                         child: Icon(
                           Icons.build,
-                          color: Colors.blue.shade700,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                       const SizedBox(width: 16),
@@ -75,21 +75,24 @@ class _ServiceScreenState extends State<ServiceScreen> {
                           children: [
                             Text(
                               lastService['type'],
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
+                                color: Theme.of(context).colorScheme.onSurface,
                               ),
                             ),
                             const SizedBox(height: 4),
                             Text(
                               '${lastService['date']} • ${lastService['center']}',
-                              style: TextStyle(color: Colors.grey.shade600),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                              ),
                             ),
                             const SizedBox(height: 4),
                             Text(
                               'Total: ${lastService['cost']}',
                               style: TextStyle(
-                                color: Colors.grey.shade600,
+                                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
                                 fontWeight: FontWeight.w500,
                               ),
                             ),
@@ -105,7 +108,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                     children: (lastService['items'] as List)
                         .map((item) => Chip(
                               label: Text(item),
-                              backgroundColor: Colors.blue.shade50,
+                              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                             ))
                         .toList(),
                   ),
@@ -137,40 +140,61 @@ class _ServiceScreenState extends State<ServiceScreen> {
                       width: 50,
                       height: 50,
                       decoration: BoxDecoration(
-                        color: Colors.green.shade100,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.green.shade900.withOpacity(0.3)
+                            : Colors.green.shade100,
                         shape: BoxShape.circle,
                       ),
                       child: Icon(
                         Icons.location_on,
-                        color: Colors.green.shade700,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.green.shade300
+                            : Colors.green.shade700,
                       ),
                     ),
                     title: Text(
                       recommendedCenter['name'],
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.onSurface,
+                      ),
                     ),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(recommendedCenter['location']),
+                        Text(
+                          recommendedCenter['location'],
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                          ),
+                        ),
                         const SizedBox(height: 4),
                         Row(
                           children: [
                             Icon(Icons.star,
                                 size: 16, color: Colors.amber),
-                            Text(' ${recommendedCenter['rating']}'),
+                            Text(
+                              ' ${recommendedCenter['rating']}',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface,
+                              ),
+                            ),
                             const SizedBox(width: 16),
                             Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 6, vertical: 2),
                               decoration: BoxDecoration(
-                                color: Colors.green.shade100,
+                                color: Theme.of(context).brightness == Brightness.dark
+                                    ? Colors.green.shade900.withOpacity(0.3)
+                                    : Colors.green.shade100,
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               child: Text(
                                 'Load: ${recommendedCenter['load']}',
                                 style: TextStyle(
-                                  color: Colors.green.shade800,
+                                  color: Theme.of(context).brightness == Brightness.dark
+                                      ? Colors.green.shade300
+                                      : Colors.green.shade800,
                                   fontSize: 12,
                                 ),
                               ),
@@ -190,7 +214,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
           // Auto-Booking Card
           if (hasAutoBooking)
             Card(
-              color: Colors.orange.shade50,
+              color: Theme.of(context).brightness == Brightness.dark
+                  ? Colors.orange.shade900.withOpacity(0.2)
+                  : Colors.orange.shade50,
               child: Padding(
                 padding: const EdgeInsets.all(16),
                 child: Column(
@@ -198,14 +224,19 @@ class _ServiceScreenState extends State<ServiceScreen> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.auto_awesome,
-                            color: Colors.orange.shade700),
+                        Icon(
+                          Icons.auto_awesome,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.orange.shade300
+                              : Colors.orange.shade700,
+                        ),
                         const SizedBox(width: 8),
-                        const Text(
+                        Text(
                           'Auto-Booked Service',
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                       ],
@@ -214,7 +245,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.surface,
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Column(
@@ -224,24 +255,37 @@ class _ServiceScreenState extends State<ServiceScreen> {
                             'Slot: Tomorrow, 10:00 AM',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.orange.shade900,
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.orange.shade300
+                                  : Colors.orange.shade900,
                             ),
                           ),
                           const SizedBox(height: 8),
                           Container(
                             padding: const EdgeInsets.all(8),
                             decoration: BoxDecoration(
-                              color: Colors.red.shade50,
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.red.shade900.withOpacity(0.3)
+                                  : Colors.red.shade50,
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Row(
                               children: [
-                                Icon(Icons.timer,
-                                    size: 16, color: Colors.red.shade700),
+                                Icon(
+                                  Icons.timer,
+                                  size: 16,
+                                  color: Theme.of(context).brightness == Brightness.dark
+                                      ? Colors.red.shade300
+                                      : Colors.red.shade700,
+                                ),
                                 const SizedBox(width: 8),
                                 Text(
                                   'Cancel by: 2 hours 15 minutes',
-                                  style: TextStyle(color: Colors.red.shade700),
+                                  style: TextStyle(
+                                    color: Theme.of(context).brightness == Brightness.dark
+                                        ? Colors.red.shade300
+                                        : Colors.red.shade700,
+                                  ),
                                 ),
                               ],
                             ),
@@ -249,7 +293,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
                           const SizedBox(height: 12),
                           Text(
                             'Reason: Failure predicted based on coolant deviation + misfire patterns',
-                            style: TextStyle(color: Colors.grey.shade700),
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                            ),
                           ),
                           const SizedBox(height: 12),
                           TextButton.icon(
@@ -406,7 +452,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
 
           // Emergency Section
           Card(
-            color: Colors.red.shade50,
+            color: Theme.of(context).brightness == Brightness.dark
+                ? Colors.red.shade900.withOpacity(0.2)
+                : Colors.red.shade50,
             child: Padding(
               padding: const EdgeInsets.all(16),
               child: Column(
@@ -414,14 +462,21 @@ class _ServiceScreenState extends State<ServiceScreen> {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.emergency, color: Colors.red.shade700),
+                      Icon(
+                        Icons.emergency,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.red.shade300
+                            : Colors.red.shade700,
+                      ),
                       const SizedBox(width: 8),
                       Text(
                         'Emergency Service',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Colors.red.shade900,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.red.shade200
+                              : Colors.red.shade900,
                         ),
                       ),
                     ],
@@ -429,7 +484,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
                   const SizedBox(height: 12),
                   Text(
                     'Vehicle unsafe — Request Tow & Auto-Schedule',
-                    style: TextStyle(color: Colors.grey.shade700),
+                    style: TextStyle(
+                      color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+                    ),
                   ),
                   const SizedBox(height: 16),
                   SizedBox(

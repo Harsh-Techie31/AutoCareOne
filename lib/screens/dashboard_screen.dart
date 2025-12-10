@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:fl_chart/fl_chart.dart';
 import '../providers/agent_provider.dart';
 import '../widgets/red_alert_box.dart';
 import '../widgets/kpi_card.dart';
@@ -50,18 +49,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
               padding: const EdgeInsets.all(12),
               margin: const EdgeInsets.only(bottom: 16),
               decoration: BoxDecoration(
-                color: Colors.amber.shade50,
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? Colors.amber.shade900.withOpacity(0.3)
+                    : Colors.amber.shade50,
                 border: Border.all(color: Colors.amber),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
                 children: [
-                  Icon(Icons.info_outline, color: Colors.amber.shade800),
+                  Icon(
+                    Icons.info_outline, 
+                    color: Theme.of(context).brightness == Brightness.dark
+                        ? Colors.amber.shade300
+                        : Colors.amber.shade800,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       'Agentic AI paused—No predictions or automation active.',
-                      style: TextStyle(color: Colors.amber.shade800),
+                      style: TextStyle(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.amber.shade300
+                            : Colors.amber.shade800,
+                      ),
                     ),
                   ),
                 ],
@@ -83,37 +93,49 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     width: 80,
                     height: 80,
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade300,
+                      color: Theme.of(context).colorScheme.surfaceVariant,
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: const Icon(Icons.directions_car, size: 40),
+                    child: Icon(
+                      Icons.directions_car, 
+                      size: 40,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                   const SizedBox(width: 16),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'Skoda Octavia',
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           'VIN: 7512BE4D',
-                          style: TextStyle(color: Colors.grey.shade600),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                          ),
                         ),
                         const SizedBox(height: 4),
                         Row(
                           children: [
-                            Icon(Icons.location_on,
-                                size: 16, color: Colors.grey.shade600),
+                            Icon(
+                              Icons.location_on,
+                              size: 16,
+                              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                            ),
                             const SizedBox(width: 4),
                             Text(
                               'Trelleborg, Sweden',
-                              style: TextStyle(color: Colors.grey.shade600),
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                              ),
                             ),
                           ],
                         ),
@@ -216,9 +238,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
           const SizedBox(height: 24),
 
           // Charts Section
-          const Text(
+          Text(
             'Telemetry Charts',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           ),
           const SizedBox(height: 12),
           TelemetryChart(
@@ -243,7 +269,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
             child: Container(
               height: 200,
               decoration: BoxDecoration(
-                color: Colors.grey.shade200,
+                color: Theme.of(context).colorScheme.surfaceVariant,
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Stack(
@@ -252,17 +278,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.map, size: 48, color: Colors.grey.shade400),
+                        Icon(
+                          Icons.map,
+                          size: 48,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.5),
+                        ),
                         const SizedBox(height: 8),
                         Text(
                           'Vehicle Route Map',
-                          style: TextStyle(color: Colors.grey.shade600),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurfaceVariant,
+                          ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           'Trelleborg → Beder-Malling',
                           style: TextStyle(
-                            color: Colors.grey.shade600,
+                            color: Theme.of(context).colorScheme.onSurfaceVariant.withOpacity(0.7),
                             fontSize: 12,
                           ),
                         ),
@@ -276,13 +308,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 8, vertical: 4),
                       decoration: BoxDecoration(
-                        color: Colors.green.shade100,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.green.shade900.withOpacity(0.3)
+                            : Colors.green.shade100,
                         borderRadius: BorderRadius.circular(4),
                       ),
                       child: Text(
                         'Route: 28 km',
                         style: TextStyle(
-                          color: Colors.green.shade800,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.green.shade300
+                              : Colors.green.shade800,
                           fontSize: 12,
                           fontWeight: FontWeight.bold,
                         ),
@@ -297,9 +333,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
           const SizedBox(height: 24),
 
           // Event Timeline
-          const Text(
+          Text(
             'Event Timeline',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).colorScheme.onSurface,
+            ),
           ),
           const SizedBox(height: 12),
           _buildEventItem(
@@ -333,12 +373,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     width: 48,
                     height: 48,
                     decoration: BoxDecoration(
-                      color: Colors.green.shade100,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.green.shade900.withOpacity(0.3)
+                          : Colors.green.shade100,
                       shape: BoxShape.circle,
                     ),
                     child: Icon(
                       Icons.shield,
-                      color: Colors.green.shade700,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.green.shade300
+                          : Colors.green.shade700,
                     ),
                   ),
                   const SizedBox(width: 16),
@@ -346,17 +390,20 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
+                        Text(
                           'UEBA Status',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.onSurface,
                           ),
                         ),
                         const SizedBox(height: 4),
                         Text(
                           'Normal - All agent actions verified',
-                          style: TextStyle(color: Colors.grey.shade600),
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+                          ),
                         ),
                       ],
                     ),

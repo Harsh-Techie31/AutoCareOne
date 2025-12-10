@@ -112,13 +112,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 children: [
                   Row(
                     children: [
-                      Icon(Icons.security, color: Colors.blue.shade700),
+                      Icon(
+                        Icons.security,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.blue.shade300
+                            : Colors.blue.shade700,
+                      ),
                       const SizedBox(width: 8),
-                      const Text(
+                      Text(
                         'UEBA – Agent Security Layer',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.onSurface,
                         ),
                       ),
                     ],
@@ -168,21 +174,34 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Container(
                     padding: const EdgeInsets.all(12),
                     decoration: BoxDecoration(
-                      color: Colors.amber.shade50,
+                      color: Theme.of(context).brightness == Brightness.dark
+                          ? Colors.amber.shade900.withOpacity(0.3)
+                          : Colors.amber.shade50,
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: Colors.amber.shade200),
+                      border: Border.all(
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? Colors.amber.shade700
+                            : Colors.amber.shade200,
+                      ),
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.info_outline,
-                            color: Colors.amber.shade800, size: 20),
+                        Icon(
+                          Icons.info_outline,
+                          color: Theme.of(context).brightness == Brightness.dark
+                              ? Colors.amber.shade300
+                              : Colors.amber.shade800,
+                          size: 20,
+                        ),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
                             'SchedulingAgent attempted unauthorized access to raw sensor dump. UEBA blocked action. Master Agent notified.',
                             style: TextStyle(
                               fontSize: 12,
-                              color: Colors.amber.shade900,
+                              color: Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.amber.shade200
+                                  : Colors.amber.shade900,
                             ),
                           ),
                         ),

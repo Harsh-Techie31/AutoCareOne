@@ -30,10 +30,15 @@ class _RedAlertBoxState extends State<RedAlertBox> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final isDark = theme.brightness == Brightness.dark;
+    
     return AnimatedContainer(
       duration: const Duration(milliseconds: 500),
       decoration: BoxDecoration(
-        color: Colors.red.shade50,
+        color: isDark 
+            ? Colors.red.shade900.withOpacity(0.2)
+            : Colors.red.shade50,
         border: Border.all(
           color: _isBlinking ? Colors.red : Colors.red.shade300,
           width: 3,
@@ -46,7 +51,11 @@ class _RedAlertBoxState extends State<RedAlertBox> {
         children: [
           Row(
             children: [
-              Icon(Icons.error, color: Colors.red.shade700, size: 28),
+              Icon(
+                Icons.error, 
+                color: isDark ? Colors.red.shade300 : Colors.red.shade700, 
+                size: 28,
+              ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -57,7 +66,7 @@ class _RedAlertBoxState extends State<RedAlertBox> {
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: Colors.red.shade900,
+                        color: isDark ? Colors.red.shade200 : Colors.red.shade900,
                       ),
                     ),
                     const SizedBox(height: 4),
@@ -86,7 +95,7 @@ class _RedAlertBoxState extends State<RedAlertBox> {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: theme.colorScheme.surface,
               borderRadius: BorderRadius.circular(8),
             ),
             child: Column(
@@ -94,12 +103,15 @@ class _RedAlertBoxState extends State<RedAlertBox> {
               children: [
                 Row(
                   children: [
-                    const Text('Confidence Score: '),
+                    Text(
+                      'Confidence Score: ',
+                      style: TextStyle(color: theme.colorScheme.onSurface),
+                    ),
                     Text(
                       '92%',
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        color: Colors.red.shade700,
+                        color: Colors.red.shade400,
                       ),
                     ),
                   ],
@@ -107,7 +119,9 @@ class _RedAlertBoxState extends State<RedAlertBox> {
                 const SizedBox(height: 8),
                 Text(
                   'High chance of breakdown within next 25 km.',
-                  style: TextStyle(color: Colors.grey.shade700),
+                  style: TextStyle(
+                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  ),
                 ),
               ],
             ),
